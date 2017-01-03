@@ -2,7 +2,7 @@
 
 SKILLS=(Overall Attack Defence Strength Hitpoints Ranged Prayer Magic Cooking Woodcutting Fletching Fishing Firemaking Crafting Smithing Mining Herblore Agility Thieving Slayer Farming Runecraft Hunter Construction)
 URL='http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player='
-DIR="$(dirname ${BASH_SOURCE[0]})"
+DIR="$(cd "$(dirname "$0")" && pwd -P)"
 LIST="$DIR/userlist"
 STATSDIR="$DIR/stats/"
 mkdir -p "$STATSDIR"
