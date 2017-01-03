@@ -19,9 +19,9 @@ update(){
 	stats="$(wget -qO- "$URL$1" | sed 's/,/ /g' | tr '/\n/' '/ /')"
 	if [ -n "$stats" ]; then
 		echo "$(date +%s) $stats" >> $STATSDIR"$1"
-		printf "%-24s%24s%s\n" "$1" "$(date)" ":)"
+		printf "%-32s%s\n" "$1" ":)"
 	else
-		printf "%-24s%24s%s\n" "$1" "$(date)" ":("
+		printf "%-32s%s\n" "$1" ":("
 	fi
 }
 
