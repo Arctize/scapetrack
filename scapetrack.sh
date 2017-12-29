@@ -1,8 +1,9 @@
 #!/bin/bash
 
 SKILLS=(Overall Attack Defence Strength Hitpoints Ranged Prayer Magic Cooking Woodcutting Fletching Fishing Firemaking Crafting Smithing Mining Herblore Agility Thieving Slayer Farming Runecraft Hunter Construction)
-URL='http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player='
+URL='http://services.runescape.com/m=hiscore_oldschool/index_lite.ws'
 DIR="$(cd "$(dirname "$0")" && pwd -P)"
+cd "$DIR"
 LIST="$DIR/userlist"
 STATSDIR="$DIR/stats/"
 mkdir -p "$STATSDIR"
@@ -16,8 +17,9 @@ usage(){
 }
 
 update(){
-	stats="$(wget -qO- "$URL$1" | sed 's/,/ /g' | tr '/\n/' '/ /')"
+	stats="$(curl -s --data-urlencode "player=$1" "$URL" | sed 's/,/ /g' | tr '/\n/' '/ /')"
 	if [ -n "$stats" ]; then
+		echo $STATSDIR"$1"
 		echo "$(date +%s) $stats" >> $STATSDIR"$1"
 		printf "%-32s%s\n" "$1" ":)"
 	else
