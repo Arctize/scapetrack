@@ -2,6 +2,7 @@
 
 SKILLS=(Overall Attack Defence Strength Hitpoints Ranged Prayer Magic Cooking Woodcutting Fletching Fishing Firemaking Crafting Smithing Mining Herblore Agility Thieving Slayer Farming Runecraft Hunter Construction)
 URL='http://services.runescape.com/m=hiscore_oldschool/index_lite.ws'
+URL_RUNETRACKER='http://runetracker.org/updateUser.php'
 DIR="$(cd "$(dirname "$0")" && pwd -P)"
 cd "$DIR"
 LIST="$DIR/userlist"
@@ -18,6 +19,7 @@ usage(){
 
 update(){
 	stats="$(curl -s --data-urlencode "player=$1" "$URL" | sed 's/,/ /g' | tr '/\n/' '/ /')"
+	curl -s --data-urlencode "user=$1" "$URL_RUNETRACKER" &>/dev/null
 	if [ -n "$stats" ]; then
 		echo $STATSDIR"$1"
 		echo "$(date +%s) $stats" >> $STATSDIR"$1"
